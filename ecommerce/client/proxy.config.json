@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://worried-business-production.up.railway.app",
+    "target": "http://localhost:8080",
     "secure": false
   }
 }
