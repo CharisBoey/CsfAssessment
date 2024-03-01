@@ -19,6 +19,11 @@ public class OrderController {
   public ResponseEntity<String> postOrder() {
 
     // TODO Task 3
+    /*  name: string
+  address: string
+  priority: boolean
+  comments: string
+  cart: Cart */
 	 
 	 return null;
   }

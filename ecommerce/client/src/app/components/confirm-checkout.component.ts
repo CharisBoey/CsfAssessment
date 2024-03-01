@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CartStore } from '../cart.store';
 import { Observable, Subscription, map } from 'rxjs';
-import { LineItem } from '../models';
+import { Cart, LineItem, Order } from '../models';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-confirm-checkout',
@@ -20,6 +21,8 @@ export class ConfirmCheckoutComponent implements OnInit, OnDestroy{
   TotalPrice:number=0
   sub!: Subscription
   lineItemArray: LineItem[]=[]
+  private prodSvc = inject(ProductService)
+
 
   ngOnInit(): void {
     this.checkoutForm = this.createForm();
@@ -34,30 +37,6 @@ export class ConfirmCheckoutComponent implements OnInit, OnDestroy{
     
   }
 
-  getValues(price:number, quantity:number){
-    console.log("!!!",price, quantity)
-  }
-    //console.log("@@@",this.AllCartItems$)
-    /* this.AllCartItems$ = this.cartStore.getCart.subscribe({
-      next: value => {console.log('Observable emitted the next value: ' + value)
-                      return value},
-      error: err => console.error('Observable emitted an error: ' + err),
-      complete: () => console.log('Observable emitted the complete notification')
-    }); */
-
-    /* prodId: string
-  quantity: number
-  name: string
-  price: number */
-
-    /* this.sub$ = this.service.postForm(this.postForm, this.photo).subscribe({
-      next: (result) => {alert('Your news has been posted successfully, with id: ' + result.newsId);
-                         this.router.navigate(['/'])},
-      error: (err) => {console.log(err)},
-      complete: () => {this.sub$.unsubscribe()}
-    }); */
-  
-
   private createForm(): FormGroup {
     return this.fb.group({
       name: this.fb.control<string>('',Validators.required),
@@ -68,6 +47,29 @@ export class ConfirmCheckoutComponent implements OnInit, OnDestroy{
   }
   processCheckout(){
     console.log(">>>FORM DETAILS: ", this.checkoutForm.value)
+    const LINEITEM: LineItem = {
+      prodId: '',
+      quantity: 0,
+      name: '',
+      price: 0,
+    }
+
+    const CART: Cart = {
+      lineItems: []
+    }
+    
+    for (let i = 0; i < this.lineItemArray.length; i++) {
+      LINEITEM.prodId = this.lineItemArray[i].prodId
+      LINEITEM.name = this.lineItemArray[i].name
+      LINEITEM.quantity = this.lineItemArray[i].quantity
+      LINEITEM.price = this.lineItemArray[i].price
+
+      CART.lineItems.push(LINEITEM)
+    }
+    const orderCheckout: Order = this.checkoutForm.value
+    orderCheckout.cart = CART
+    console.log("AFTER PROCESSING>>>", orderCheckout)
+    this.prodSvc.checkout(orderCheckout)
     this.checkoutForm = this.createForm()
   }
 
