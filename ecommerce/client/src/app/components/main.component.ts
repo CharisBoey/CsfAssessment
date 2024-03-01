@@ -22,6 +22,7 @@ export class MainComponent implements OnInit {
   }
 
   viewCatetory(category: string) {
+    console.log(">>>CATEGORY", category)
     this.router.navigate(['/category', category])
   }
 

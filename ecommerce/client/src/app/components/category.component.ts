@@ -23,5 +23,6 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
     this.category = this.activatedRoute.snapshot.params['category']
     this.products$ = this.prodSvc.getProductsByCategory(this.category)
+    console.log("In Category Component...")
   }
 }

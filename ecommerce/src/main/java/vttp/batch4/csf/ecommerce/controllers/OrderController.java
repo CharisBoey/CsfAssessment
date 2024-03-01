@@ -10,8 +10,8 @@ import vttp.batch4.csf.ecommerce.services.PurchaseOrderService;
 @Controller
 public class OrderController {
 
-  @Autowired
-  private PurchaseOrderService poSvc;
+  /* @Autowired
+  private PurchaseOrderService poSvc; */
 
   // IMPORTANT: DO NOT MODIFY THIS METHOD.
   // If this method is changed, any assessment task relying on this method will

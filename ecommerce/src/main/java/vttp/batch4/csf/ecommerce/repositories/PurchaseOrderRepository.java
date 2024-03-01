@@ -9,8 +9,8 @@ import vttp.batch4.csf.ecommerce.models.Order;
 @Repository
 public class PurchaseOrderRepository {
 
-  @Autowired
-  private JdbcTemplate template;
+ /*  @Autowired
+  private JdbcTemplate template; */
 
   // IMPORTANT: DO NOT MODIFY THIS METHOD.
   // If this method is changed, any assessment task relying on this method will

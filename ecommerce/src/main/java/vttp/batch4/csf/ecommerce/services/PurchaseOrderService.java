@@ -9,8 +9,8 @@ import vttp.batch4.csf.ecommerce.repositories.PurchaseOrderRepository;
 @Service
 public class PurchaseOrderService {
 
-  @Autowired
-  private PurchaseOrderRepository poRepo;
+  /* @Autowired
+  private PurchaseOrderRepository poRepo; */
 
   // IMPORTANT: DO NOT MODIFY THIS METHOD.
   // If this method is changed, any assessment task relying on this method will
