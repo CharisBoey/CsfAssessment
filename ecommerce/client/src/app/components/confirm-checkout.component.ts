@@ -62,7 +62,6 @@ export class ConfirmCheckoutComponent implements OnInit, OnDestroy{
     const CART: Cart = {
       lineItems: []
     }
-    console.log("???", this.lineItemArray)
     CART.lineItems = this.lineItemArray;
 
     const orderCheckout: Order = this.checkoutForm.value

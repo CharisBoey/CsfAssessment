@@ -3,3 +3,5 @@ TODO Task 1
 Write the command to import products.csv into Mongo in this file
 
 mongoimport -d productsDB -c products --type csv --file data/products.csv --headerline
+
+mongoimport --uri=mongodb://mongo:3DA-e54e21d1FfG-GEe4-fgGBfdcH1Ba@monorail.proxy.rlwy.net:20574/?authSource=admin --db=productsDB -c products --type=csv --file=C:\Users\chari\Desktop\csfAssessment\data\products.csv --headerline

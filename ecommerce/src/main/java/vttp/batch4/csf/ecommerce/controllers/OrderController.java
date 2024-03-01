@@ -96,7 +96,7 @@ public class OrderController {
     try {
       poSvc.createNewPurchaseOrder(order);
       orderId = order.getOrderId();
-      System.out.println("ORDER ID HELLO"+ orderId);
+      System.out.println("ORDER ID >>>"+ orderId);
       JsonObject returnObj = Json.createObjectBuilder()
 				.add("orderId", orderId)
 				.build();
