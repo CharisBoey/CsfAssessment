@@ -4,6 +4,7 @@ import { CartStore } from '../cart.store';
 import { Observable, Subscription, map } from 'rxjs';
 import { Cart, LineItem, Order } from '../models';
 import { ProductService } from '../product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-checkout',
@@ -22,6 +23,17 @@ export class ConfirmCheckoutComponent implements OnInit, OnDestroy{
   sub!: Subscription
   lineItemArray: LineItem[]=[]
   private prodSvc = inject(ProductService)
+  private router = inject(Router)
+
+  //lineItemTemp: LineItem[]=[]
+
+  LINEITEM: LineItem = {
+    prodId: '',
+    quantity: 0,
+    name: '',
+    price: 0,
+  }
+
 
 
   ngOnInit(): void {
@@ -31,7 +43,7 @@ export class ConfirmCheckoutComponent implements OnInit, OnDestroy{
       items => this.lineItemArray = items)
 
     for (let i = 0; i < this.lineItemArray.length; i++) {
-        console.log(this.lineItemArray[i]); 
+        console.log("IN ARRAY...", this.lineItemArray[i]); 
         this.TotalPrice += (this.lineItemArray[i].price * this.lineItemArray[i].quantity)
     }
     
@@ -47,30 +59,30 @@ export class ConfirmCheckoutComponent implements OnInit, OnDestroy{
   }
   processCheckout(){
     console.log(">>>FORM DETAILS: ", this.checkoutForm.value)
-    const LINEITEM: LineItem = {
-      prodId: '',
-      quantity: 0,
-      name: '',
-      price: 0,
-    }
-
     const CART: Cart = {
       lineItems: []
     }
-    
-    for (let i = 0; i < this.lineItemArray.length; i++) {
-      LINEITEM.prodId = this.lineItemArray[i].prodId
-      LINEITEM.name = this.lineItemArray[i].name
-      LINEITEM.quantity = this.lineItemArray[i].quantity
-      LINEITEM.price = this.lineItemArray[i].price
+    console.log("???", this.lineItemArray)
+    CART.lineItems = this.lineItemArray;
 
-      CART.lineItems.push(LINEITEM)
-    }
     const orderCheckout: Order = this.checkoutForm.value
     orderCheckout.cart = CART
     console.log("AFTER PROCESSING>>>", orderCheckout)
-    this.prodSvc.checkout(orderCheckout)
+    this.prodSvc.checkout(orderCheckout).then(resp => {
+      console.info('>>> resp: ', resp)
+      alert(JSON.stringify(resp))
+      this.router.navigate(['/'])
+  
+    })
+    .catch(err => alert(JSON.stringify(err)))
+
     this.checkoutForm = this.createForm()
+
+    //CHECK THAT RECEIVED
+    /* this.prodSvc.checkout(orderCheckout).then(resp => {
+      console.info('>>> resp: ', resp)
+    })
+    .catch(err => alert(JSON.stringify(err))) */
   }
 
   ngOnDestroy(): void {
