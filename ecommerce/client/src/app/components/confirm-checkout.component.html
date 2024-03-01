@@ -36,25 +36,27 @@
 </form>
 
 <hr>
-
-<table border="1">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Quantity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> Apple </td>
-      <td> 0.5 </td>
-      <td> 6 </td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <td></td>
-    <td>Total: </td>
-    <td> 100 </td>
-  </tfoot>
-</table>
+<!-- <div *ngIf="AllCartItems$|async as cart"> -->
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of lineItemArray">
+        <!-- {{c|json}} -->
+        <td> {{c.name}} </td>
+        <td> {{c.price | currency:"INR"}} </td>
+        <td> {{c.quantity}} </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <td></td>
+      <td>Total: </td>
+      <td> {{TotalPrice | currency:"INR"}} </td>
+    </tfoot>
+  </table>
+<!-- </div> -->
