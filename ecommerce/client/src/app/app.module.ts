@@ -15,7 +15,20 @@ import {ConfirmCheckoutComponent} from './components/confirm-checkout.component'
 // NOTE: you are free to modify this file
 
 const appRoutes: Routes = [
+  // Define the 'landing' page
+  { path: '', component: MainComponent },
+  { path: 'category', component: CategoryComponent },
+  { path: 'checkout', component: ConfirmCheckoutComponent },
+  
+  // Wildcard route - last
+  { path: '**', redirectTo: '/', pathMatch: 'full'}
+  
 ]
+
+  //{ path: 'display/:tag', component: DisplayComponent },
+  // :num == {num} in SpringBoot
+  //{ path: 'number/:num', component: NumberComponent },
+  //{ path: 'number-by-service', component: NumberByServiceComponent },
 
 @NgModule({
   declarations: [
